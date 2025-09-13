@@ -14,7 +14,8 @@ export const PropertyTypeEnum = z.enum([
   "Office",
   "Retail",
 ]);
-export const BHKEnum = z.enum(["1", "2", "3", "4", "Studio"]);
+export const BHKEnum = z.enum(["BHK1", "BHK2", "BHK3", "BHK4", "STUDIO"]);
+
 export const PurposeEnum = z.enum(["Buy", "Rent"]);
 export const TimelineEnum = z.enum(["0-3m", "3-6m", ">6m", "Exploring"]);
 export const SourceEnum = z.enum([
@@ -35,7 +36,7 @@ export const StatusEnum = z.enum([
 ]);
 
 // Base buyer schema
-const baseBuyerSchema = z.object({
+export const baseBuyerSchema = z.object({
   fullName: z
     .string()
     .min(2, "Name must be at least 2 characters")
