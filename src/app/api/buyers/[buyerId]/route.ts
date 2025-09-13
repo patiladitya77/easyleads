@@ -83,3 +83,30 @@ export async function PUT(
     return NextResponse.json({ error: String(error) }, { status: 400 });
   }
 }
+
+//API for deleting buyer lead
+export async function DELETE(
+  req: Request,
+  { params }: { params: { buyerId: string } }
+) {
+  try {
+    const buyer = await prisma.buyer.findUnique({
+      where: { id: params.buyerId },
+    });
+
+    if (!buyer) {
+      return NextResponse.json({ error: "Buyer not found" }, { status: 404 });
+    }
+
+    await prisma.buyer.delete({
+      where: { id: params.buyerId },
+    });
+
+    return NextResponse.json({ message: "Buyer deleted" }, { status: 200 });
+  } catch (error) {
+    if (error instanceof Error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+    return NextResponse.json({ error: "Unknown error" }, { status: 500 });
+  }
+}
