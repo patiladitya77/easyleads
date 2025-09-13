@@ -25,7 +25,17 @@ model Buyer {
   tags        String[]
   ownerId     String
   updatedAt   DateTime   @updatedAt
+  history     BuyerHistory[]
   
+}
+
+model BuyerHistory {
+  id        String   @id @default(uuid())
+  buyerId   String
+  changedBy String
+  changedAt DateTime @default(now())
+  diff      Json
+  buyer     Buyer    @relation(fields: [buyerId], references: [id])
 }
 
 
