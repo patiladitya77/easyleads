@@ -14,14 +14,20 @@ export const PropertyTypeEnum = z.enum([
   "Office",
   "Retail",
 ]);
-export const BHKEnum = z.enum(["BHK1", "BHK2", "BHK3", "BHK4", "STUDIO"]);
+export const BHKEnum = z.enum(["BHK1", "BHK2", "BHK3", "BHK4", "Studio"]);
 
 export const PurposeEnum = z.enum(["Buy", "Rent"]);
-export const TimelineEnum = z.enum(["0-3m", "3-6m", ">6m", "Exploring"]);
+export const TimelineEnum = z.enum([
+  "ZERO_TO_THREE_MONTHS",
+  "THREE_TO_SIX_MONTHS",
+  "MORE_THAN_SIX_MONTHS",
+  "EXPLORING",
+]);
+
 export const SourceEnum = z.enum([
   "Website",
   "Referral",
-  "Walk-in",
+  "Walk_in",
   "Call",
   "Other",
 ]);
