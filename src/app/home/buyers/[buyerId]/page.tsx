@@ -41,7 +41,7 @@ export default function BuyerDetails({
 
   useEffect(() => {
     async function fetchBuyer() {
-      const res = await fetch(`/api/buyers/${buyerId}`);
+      const res = await fetch(process.env.NEXT_PUBLIC_API_BASE_URL + buyerId);
       const data = await res.json();
       setBuyer(data);
       setForm(data);
