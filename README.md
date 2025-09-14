@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Buyer Management System (Real Estate CRM Lite)
 
-## Getting Started
+This project is a **real estate lead management system** built using **Next.js, Prisma, NeonDB,Firebase and Zod**. It helps real estate agencies or property consultants manage people who are looking to buy or rent properties.
 
-First, run the development server:
+## Key Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Buyer Records Management** – Add, view, update, and delete buyer details (name, phone, city, property type, budget, etc.).
+- **Search & Filters** – Find buyers by city, property type, status, or timeline.
+- **Validation with Zod** – Ensures all form inputs are clean and valid before saving.
+- **Database with Prisma + NeonDB** – Strongly typed schema and easy migrations with PostgreSQL on NeonDB.
+- **Buyer History Tracking** – Records every change made to a buyer for accountability.
+- **API Routes in Next.js** – REST-style API endpoints for CRUD operations (create, read, update, delete).
+- **Frontend with Next.js (App Router)** – Minimal UI focusing on functionality (list of buyers, add new buyer form, delete/update support).
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Frontend:** Next.js (App Router, React)
+- **Backend:** Next.js API Routes, Prisma ORM
+- **Database:** NeonDB (PostgreSQL)
+- **Validation:** Zod
+- **Deployment:** Vercel (Frontend + API), NeonDB (Database)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Use Case
 
-## Learn More
+- Employees (agents) can add details of people who want to buy or rent a property.
+- Managers can see all buyers in one place, update their status (New, Contacted, Negotiation, Converted, etc.), and track interactions.
+- Helps teams avoid losing leads and improves sales workflow.
 
-To learn more about Next.js, take a look at the following resources:
+# how to run this loaclly?
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+    - clone this repository
+    - run the command => npm install
+    - setup your environmental variables
+    - you can refer .env.example file for environment variables
