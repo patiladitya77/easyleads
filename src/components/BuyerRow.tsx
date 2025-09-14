@@ -89,14 +89,14 @@ const BuyerRow = ({ buyer }: BuyerRowProps) => {
 
       <div className="flex items-center gap-2">
         <button
-          onClick={() => router.push(`/buyers/${buyer.id}`)}
+          onClick={() => router.push(`/home/buyers/${buyer.id}`)}
           className="p-1 text-gray-400 hover:text-blue-600 transition-colors"
           title="View buyer"
         >
           <Eye className="w-4 h-4" />
         </button>
         <button
-          onClick={() => router.push(`/buyers/${buyer.id}/edit`)}
+          onClick={() => router.push(`/home/buyers/${buyer.id}/edit`)}
           className="p-1 text-gray-400 hover:text-green-600 transition-colors"
           title="Edit buyer"
         >
