@@ -11,6 +11,7 @@ This project is a **real estate lead management system** built using **Next.js, 
 - **Buyer History Tracking** – Records every change made to a buyer for accountability.
 - **API Routes in Next.js** – REST-style API endpoints for CRUD operations (create, read, update, delete).
 - **Frontend with Next.js (App Router)** – Minimal UI focusing on functionality (list of buyers, add new buyer form, delete/update support).
+- **Import and export to csv**
 
 ## Tech Stack
 
