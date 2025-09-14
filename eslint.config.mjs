@@ -22,6 +22,15 @@ const eslintConfig = [
     rules: {
       "@typescript-eslint/no-this-alias": "off",
       "@typescript-eslint/no-require-imports": "off",
+      "@typescript-eslint/no-explicit-any": "warn",
+      "@typescript-eslint/ban-types": [
+        "error",
+        {
+          types: {
+            "{}": false,
+          },
+        },
+      ],
     },
   },
 ];
