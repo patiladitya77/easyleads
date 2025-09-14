@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import Papa from "papaparse";
+import * as Papa from "papaparse";
+
 import { z } from "zod";
 
 const bhkMap: Record<string, string> = {
