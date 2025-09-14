@@ -3,17 +3,13 @@ import { prisma } from "@/lib/prisma";
 import { baseBuyerSchema } from "@/lib/validation";
 
 // GET /api/buyers/:id
-export async function GET(
-  req: Request,
-  context: { params: Record<string, string> }
-) {
-  const { buyerId } = context.params;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function GET(req: Request, context: any) {
+  const { buyerId } = context.params as { buyerId: string };
 
   const buyer = await prisma.buyer.findUnique({
     where: { id: buyerId },
-    include: {
-      history: { orderBy: { changedAt: "desc" }, take: 5 },
-    },
+    include: { history: { orderBy: { changedAt: "desc" }, take: 5 } },
   });
 
   if (!buyer)
@@ -22,82 +18,64 @@ export async function GET(
   return NextResponse.json(buyer);
 }
 
-//API for updating buyer
-export async function PUT(
-  req: Request,
-  { params }: { params: { buyerId: string } }
-) {
+// PUT /api/buyers/:id
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function PUT(req: Request, context: any) {
+  const { buyerId } = context.params as { buyerId: string };
+
   try {
     const body = await req.json();
     const data = baseBuyerSchema.parse(body);
 
-    const buyer = await prisma.buyer.findUnique({
-      where: { id: params.buyerId },
-    });
-
-    if (!buyer) {
+    const buyer = await prisma.buyer.findUnique({ where: { id: buyerId } });
+    if (!buyer)
       return NextResponse.json({ error: "Buyer not found" }, { status: 404 });
-    }
 
     const updatedBuyer = await prisma.buyer.update({
-      where: { id: params.buyerId },
+      where: { id: buyerId },
       data: { ...data },
     });
 
-    // Log diff into BuyerHistory
+    // Log diff
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const diff: Record<string, [any, any]> = {};
     for (const key of Object.keys(data) as (keyof typeof data)[]) {
       const oldValue = buyer[key as keyof typeof buyer];
       const newValue = data[key];
-
-      if (oldValue !== newValue) {
-        diff[key] = [oldValue, newValue];
-      }
+      if (oldValue !== newValue) diff[key] = [oldValue, newValue];
     }
 
     if (Object.keys(diff).length > 0) {
       await prisma.buyerHistory.create({
-        data: {
-          buyerId: params.buyerId,
-          changedBy: "demo",
-          diff,
-        },
+        data: { buyerId, changedBy: "demo", diff },
       });
     }
 
-    return NextResponse.json(updatedBuyer, { status: 200 });
-  } catch (error) {
-    if (error instanceof Error) {
-      return NextResponse.json({ error: error.message }, { status: 400 });
-    }
-    return NextResponse.json({ error: String(error) }, { status: 400 });
+    return NextResponse.json(updatedBuyer);
+  } catch (err) {
+    return NextResponse.json(
+      { error: (err as Error).message || "Something went wrong" },
+      { status: 400 }
+    );
   }
 }
 
-//API for deleting buyer lead
-export async function DELETE(
-  req: Request,
-  { params }: { params: { buyerId: string } }
-) {
+// DELETE /api/buyers/:id
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function DELETE(req: Request, context: any) {
+  const { buyerId } = context.params as { buyerId: string };
+
   try {
-    const buyer = await prisma.buyer.findUnique({
-      where: { id: params.buyerId },
-    });
-
-    if (!buyer) {
+    const buyer = await prisma.buyer.findUnique({ where: { id: buyerId } });
+    if (!buyer)
       return NextResponse.json({ error: "Buyer not found" }, { status: 404 });
-    }
 
-    await prisma.buyer.delete({
-      where: { id: params.buyerId },
-    });
-
-    return NextResponse.json({ message: "Buyer deleted" }, { status: 200 });
-  } catch (error) {
-    if (error instanceof Error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
-    }
-    return NextResponse.json({ error: "Unknown error" }, { status: 500 });
+    await prisma.buyer.delete({ where: { id: buyerId } });
+    return NextResponse.json({ message: "Buyer deleted" });
+  } catch (err) {
+    return NextResponse.json(
+      { error: (err as Error).message || "Unknown error" },
+      { status: 500 }
+    );
   }
 }

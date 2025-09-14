@@ -79,7 +79,11 @@ export async function GET(req: Request) {
         "EXPLORING",
       ].includes(timeline)
     ) {
-      where.timeline = timeline;
+      where.timeline = timeline as
+        | "ZERO_TO_THREE_MONTHS"
+        | "THREE_TO_SIX_MONTHS"
+        | "MORE_THAN_SIX_MONTHS"
+        | "EXPLORING";
     }
 
     if (search && search.trim()) {
