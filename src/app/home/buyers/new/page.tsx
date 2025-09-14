@@ -80,7 +80,6 @@ export default function NewBuyer() {
     };
 
     try {
-      // change the URL to /api/v1/buyers if your API lives there
       const res = await fetch("/api/buyers", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
