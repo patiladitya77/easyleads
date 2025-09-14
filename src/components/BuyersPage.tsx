@@ -73,8 +73,10 @@ export default function BuyersPage() {
     parseInt(searchParams.get("page") || "1")
   );
   const [totalPages, setTotalPages] = useState(1);
+  const handleGoBack = () => {
+    router.push("/home/buyers");
+  };
 
-  // 🔑 Unified effect: fetch + update URL
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -86,12 +88,10 @@ export default function BuyersPage() {
         if (selectedCity) params.set("city", selectedCity);
         if (selectedStatus) params.set("status", selectedStatus);
 
-        // Update URL
         router.push(`/home/buyers/viewall?${params.toString()}`, {
           scroll: false,
         });
 
-        // Fetch data
         const res = await fetch(`/api/buyers?${params.toString()}`);
         const data: BuyersResponse = await res.json();
 
@@ -122,6 +122,12 @@ export default function BuyersPage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold text-gray-800">Buyers</h1>
+        <button
+          className="rounded-md py-1 px-2 ml-250 cursor-pointer bg-black text-white"
+          onClick={handleGoBack}
+        >
+          Go back
+        </button>
         <div className="text-sm text-gray-600">
           {buyers.length} buyers found
         </div>
