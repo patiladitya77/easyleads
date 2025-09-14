@@ -38,13 +38,16 @@ export default function BuyerDetails({
   const [buyer, setBuyer] = useState<Buyer | null>(null);
   const [editing, setEditing] = useState(false);
   const [form, setForm] = useState<Partial<Buyer>>({});
-  const fetchBuyer = async () => {
-    const res = await fetch(process.env.NEXT_PUBLIC_API_BASE_URL + buyerId);
-    const data = await res.json();
-    setBuyer(data);
-    setForm(data);
-  };
   useEffect(() => {
+    const fetchBuyer = async () => {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}${buyerId}`
+      );
+      const data = await res.json();
+      setBuyer(data);
+      setForm(data);
+    };
+
     fetchBuyer();
   }, [buyerId]);
 

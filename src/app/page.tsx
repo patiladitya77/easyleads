@@ -54,7 +54,7 @@ export default function Home() {
           })
             .then(() => {
               if (auth.currentUser) {
-                const { uid, displayName, email, photoURL } = auth.currentUser;
+                // const { uid, displayName, email, photoURL } = auth.currentUser;
               }
             })
             .catch(() => {

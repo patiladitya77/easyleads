@@ -57,47 +57,89 @@ export default function BuyersPage() {
     "Dropped",
   ];
 
-  const getBuyers = async () => {
-    try {
-      setLoading(true);
-      const params = new URLSearchParams();
+  //   const getBuyers = async () => {
+  //     try {
+  //       setLoading(true);
+  //       const params = new URLSearchParams();
 
+  //       params.set("page", currentPage.toString());
+  //       if (searchTerm) params.set("search", searchTerm);
+  //       if (selectedCity) params.set("city", selectedCity);
+  //       if (selectedStatus) params.set("status", selectedStatus);
+
+  //       const response = await fetch(`/api/buyers?${params.toString()}`);
+  //       const data: BuyersResponse = await response.json();
+
+  //       if (response.ok) {
+  //         setBuyers(data.buyers);
+  //         setTotalPages(data.totalPages);
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching buyers:", error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   const updateURL = () => {
+  //     const params = new URLSearchParams();
+  //     params.set("page", currentPage.toString());
+  //     if (searchTerm) params.set("search", searchTerm);
+  //     if (selectedCity) params.set("city", selectedCity);
+  //     if (selectedStatus) params.set("status", selectedStatus);
+
+  //     router.push(`/home/buyers/viewall?${params.toString()}`, { scroll: false });
+  //   };
+
+  //   useEffect(() => {
+  //     getBuyers();
+  //   }, [currentPage, searchTerm, selectedCity, selectedStatus]);
+
+  //   useEffect(() => {
+  //     updateURL();
+  //   }, [currentPage, searchTerm, selectedCity, selectedStatus]);
+  useEffect(() => {
+    const getBuyers = async () => {
+      try {
+        setLoading(true);
+        const params = new URLSearchParams();
+        params.set("page", currentPage.toString());
+        if (searchTerm) params.set("search", searchTerm);
+        if (selectedCity) params.set("city", selectedCity);
+        if (selectedStatus) params.set("status", selectedStatus);
+
+        const response = await fetch(`/api/buyers?${params.toString()}`);
+        const data: BuyersResponse = await response.json();
+
+        if (response.ok) {
+          setBuyers(data.buyers);
+          setTotalPages(data.totalPages);
+        }
+      } catch (error) {
+        console.error("Error fetching buyers:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getBuyers();
+  }, [currentPage, searchTerm, selectedCity, selectedStatus]);
+
+  useEffect(() => {
+    const updateURL = () => {
+      const params = new URLSearchParams();
       params.set("page", currentPage.toString());
       if (searchTerm) params.set("search", searchTerm);
       if (selectedCity) params.set("city", selectedCity);
       if (selectedStatus) params.set("status", selectedStatus);
 
-      const response = await fetch(`/api/buyers?${params.toString()}`);
-      const data: BuyersResponse = await response.json();
+      router.push(`/home/buyers/viewall?${params.toString()}`, {
+        scroll: false,
+      });
+    };
 
-      if (response.ok) {
-        setBuyers(data.buyers);
-        setTotalPages(data.totalPages);
-      }
-    } catch (error) {
-      console.error("Error fetching buyers:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const updateURL = () => {
-    const params = new URLSearchParams();
-    params.set("page", currentPage.toString());
-    if (searchTerm) params.set("search", searchTerm);
-    if (selectedCity) params.set("city", selectedCity);
-    if (selectedStatus) params.set("status", selectedStatus);
-
-    router.push(`/home/buyers/viewall?${params.toString()}`, { scroll: false });
-  };
-
-  useEffect(() => {
-    getBuyers();
-  }, [currentPage, searchTerm, selectedCity, selectedStatus]);
-
-  useEffect(() => {
     updateURL();
-  }, [currentPage, searchTerm, selectedCity, selectedStatus]);
+  }, [currentPage, searchTerm, selectedCity, selectedStatus, router]);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
